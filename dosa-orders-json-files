@@ -1,22 +1,11 @@
 import json
 from collections import defaultdict
 
-
 def read_orders(file_name):
     """Reads the JSON orders from the specified file."""
     with open(file_name, 'r') as file:
         orders = json.load(file)
     return orders
-
-if __name__ == "__main__":
-    import sys
-    if len(sys.argv) != 2:
-        print("Usage: python dosa_orders.py <orders.json>")
-        sys.exit(1)
-
-    orders_file = sys.argv[1]
-    orders = read_orders(orders_file)
-    print(orders)
 
 def create_customers_json(orders, output_file="customers.json"):
     """Creates a JSON file containing customers' phone numbers as keys and names as values."""
@@ -28,7 +17,7 @@ def create_customers_json(orders, output_file="customers.json"):
 
     with open(output_file, 'w') as file:
         json.dump(customers, file, indent=4)
-
+    print(f"{output_file} created successfully!")
 
 def create_items_json(orders, output_file="items.json"):
     """Creates a JSON file containing item names as keys and an object with price and number of times ordered as values."""
@@ -41,7 +30,17 @@ def create_items_json(orders, output_file="items.json"):
 
     with open(output_file, 'w') as file:
         json.dump(items, file, indent=4)
-
     print(f"{output_file} created successfully!")
 
-    print(f"{output_file} created successfully!")
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) != 2:
+        print("Usage: python dosa_orders.py <orders.json>")
+        sys.exit(1)
+
+    orders_file = sys.argv[1]
+    orders = read_orders(orders_file)
+    
+    # Generate customers.json and items.json
+    create_customers_json(orders)
+    create_items_json(orders)
