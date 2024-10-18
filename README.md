@@ -76,3 +76,5 @@ Before you run this, make sure you have:
     - `items.json`: This file contains item names, prices, and the number of times each item was ordered.
 
 ## Contributing
+If you have suggestions for improvement, feel free to fork this repo, make changes, and submit a pull request! All contributions are welcome.
+
