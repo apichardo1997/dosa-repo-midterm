@@ -1,4 +1,6 @@
 import json
+from collections import defaultdict
+
 
 def read_orders(file_name):
     """Reads the JSON orders from the specified file."""
@@ -26,5 +28,20 @@ def create_customers_json(orders, output_file="customers.json"):
 
     with open(output_file, 'w') as file:
         json.dump(customers, file, indent=4)
+
+
+def create_items_json(orders, output_file="items.json"):
+    """Creates a JSON file containing item names as keys and an object with price and number of times ordered as values."""
+    items = defaultdict(lambda: {"price": 0, "orders": 0})
+    for order in orders:
+        for item in order["items"]:
+            item_name = item["name"]
+            items[item_name]["price"] = item["price"]
+            items[item_name]["orders"] += 1
+
+    with open(output_file, 'w') as file:
+        json.dump(items, file, indent=4)
+
+    print(f"{output_file} created successfully!")
 
     print(f"{output_file} created successfully!")
